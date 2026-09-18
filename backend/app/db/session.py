@@ -88,19 +88,20 @@ def ensure_schema(engine: Engine) -> None:
 
 def init_db() -> None:
     """Create schema. Use Alembic on PostgreSQL when available; create_all always as safety."""
+    from app.utils.logging import get_logger
+
     engine = get_engine()
+    log = get_logger(__name__)
     if dialect_name() == "postgresql":
         try:
             from alembic import command
             from alembic.config import Config
 
-            from app.utils.logging import get_logger
-
             cfg = Config(str(BACKEND_DIR / "alembic.ini"))
             cfg.set_main_option("sqlalchemy.url", configured_database_url())
             command.upgrade(cfg, "head")
         except Exception as exc:
-            get_logger(__name__).warning(
+            log.warning(
                 "Alembic upgrade failed; falling back to create_all",
                 error_type=type(exc).__name__,
             )
