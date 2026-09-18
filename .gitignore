@@ -1,0 +1,140 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Virtual environments
+.env
+.env.*
+!.env.example
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Node.js
+node_modules/
+cloudflare/node_modules/
+cloudflare/.wrangler/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Next.js
+.next/
+.next-dev/
+out/
+next-env.d.ts
+
+# Production builds
+build/
+dist/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+!**/.env.example
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Local SQLite ledger
+backend/data/
+
+# Logs
+logs
+*.log
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Secrets and credentials
+secrets/
+credentials/
+*.pem
+*.key
+*.crt
+
+# Trading data (sensitive)
+trading_data/
+portfolio_snapshots/
+order_history/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Documentation builds
+docs/_build/
+site/
+
+# Package files
+*.tgz
+*.tar.gz
+*.zip
+
+# Editor configs
+.editorconfig

@@ -1,0 +1,49 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "trade-ai-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-18",
+  "observability": { "enabled": true },
+  // Routes all HTTP + WebSocket traffic to the existing FastAPI Docker image.
+  // Build context: ../backend (see Dockerfile path below).
+  "containers": [
+    {
+      "class_name": "TradeAiApiContainer",
+      "image": "../backend/Dockerfile",
+      "max_instances": 3
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "TRADE_AI_API",
+        "class_name": "TradeAiApiContainer"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["TradeAiApiContainer"]
+    }
+  ],
+  "vars": {
+    "ENVIRONMENT": "production",
+    "DEBUG": "false",
+    "ALPACA_PAPER_TRADE": "true",
+    "DRY_RUN": "true",
+    "ALPACA_BASE_URL": "https://paper-api.alpaca.markets",
+    "ALPACA_DATA_URL": "https://data.alpaca.markets",
+    "LLM_PROVIDER": "groq",
+    "LLM_MODEL": "llama-3.1-8b-instant",
+    "FRONTEND_URL": ""
+  },
+  "secrets": {
+    "required": [
+      "ALPACA_API_KEY",
+      "ALPACA_SECRET_KEY",
+      "LLM_API_KEY",
+      "DATABASE_URL"
+    ]
+  }
+}
