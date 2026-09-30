@@ -811,13 +811,13 @@ The system is designed around simulated trading for safer development and demons
 🔗 Links
 GitHub Repository
 https://github.com/sathvi1234/tradeguard-ai
-text
+
 Live Demo
 https://tradeguard-ai-three.vercel.app/
-text
+
 Demo Video
 https://youtu.be/lPzSqNlcFbY?feature=shared
-text
+
 👩‍💻 Authoragent risk architecture.
 
 TradeGuard AI — Let AI reason. Let deterministic risk controls decide.
