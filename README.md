@@ -1,380 +1,989 @@
-# TradeGuard AI - Professional Autonomous Trading Platform
+# 🛡️ TradeGuard AI
 
-A sophisticated AI-powered options trading platform combining deep learning-based opportunity identification with deterministic risk management. Built with autonomous agents, real-time portfolio tracking, and paper trading safety.
+> **Autonomous Multi-Agent Options Trading with Adaptive Risk Protection**
 
-## Overview
+TradeGuard AI is an AI-powered autonomous trading system that combines **multi-agent market analysis, options strategy reasoning, deterministic risk protection, portfolio monitoring, and paper-trading execution** into a single platform.
 
-TradeGuard AI implements a complete autonomous trading system with:
+Unlike systems where an AI model directly controls trading decisions, TradeGuard AI follows a **Separation of Powers architecture**:
 
-- **7 Specialized AI Agents**: Market Scout, Options Analyst, Bull/Bear agents, Strategy Agent, Risk Agent, Decision Agent
-- **Deterministic Risk Guardians**: Risk Guardian and Drawdown Guardian for safety
-- **Real-time Portfolio Management**: Alpaca Trading API integration
-- **Professional Dashboard**: Real-time metrics, charts, position tracking
-- **Debate Pipeline**: Transparent AI decision-making visualization
-- **Paper Trading**: Safe simulation without real money risk
+**AI Agents Analyze → Debate → Decision → Deterministic Risk Guardian → Validated Execution**
 
-## Architecture
+The AI can reason about opportunities, but **risk controls always have the final authority**.
 
-### Frontend (Next.js)
-```
-frontend/
-├── app/
-│   ├── dashboard/         # Main portfolio overview
-│   ├── ai-debate/        # AI decision pipeline visualization
-│   ├── portfolio/        # Historical charts and stats
-│   ├── positions/        # Open positions table
-│   ├── trade-history/    # Order history
-│   ├── activity-log/     # Audit trail timeline
-│   ├── risk-center/      # Risk metrics and guardians
-│   ├── opportunities/    # Market opportunities
-│   └── settings/         # Configuration status
-├── components/
-│   ├── VoiceAlert.tsx    # Mock voice notifications
-│   └── QRCode.tsx        # Mobile access QR
-├── hooks/
-│   └── useApi.ts         # SWR data fetching hooks
-├── lib/
-│   └── api.ts            # Axios API client
-└── types/
-    └── index.ts          # TypeScript definitions
-```
+---
 
-### Backend (Python)
-```
-backend/
-├── app/
-│   ├── autonomous/       # Autonomous trading engine
-│   ├── agents/          # AI agent implementations
-│   ├── portfolio/       # Portfolio management
-│   ├── debate/          # Debate pipeline
-│   ├── risk/            # Risk guardians
-│   └── main.py          # FastAPI app
-├── tests/               # Comprehensive test suite
-└── requirements.txt     # Dependencies
-```
+## 🚀 Live Demo
 
-## AI Agents
+https://tradeguard-ai-three.vercel.app/
 
-### Market Scout Agent
-Analyzes market conditions, price trends, and volatility to identify opportunities.
-- Input: Market data, price history, technical indicators
-- Output: Direction recommendation (bullish/bearish) + confidence score
 
-### Bull Agent
-Argues the bullish case for a trading opportunity.
-- Analyzes: Favorable market conditions, momentum, technical levels
-- Confidence: Based on evidence weight
+**Demo Mode:** Paper Trading / Simulated Trading
 
-### Bear Agent
-Argues the bearish case to balance debate.
-- Analyzes: Risk factors, resistance levels, negative catalysts
-- Confidence: Reflects counter-argument strength
+TradeGuard AI is designed to demonstrate autonomous trading workflows without exposing real capital.
 
-### Options Analyst
-Selects viable option contracts with adequate liquidity.
-- Checks: Spread width, volume, open interest
-- Rejects: Illiquid or expensive contracts
+---
 
-### Strategy Agent
-Determines optimal trading strategy (buy_call, buy_put, spreads).
-- Based on: Market direction + risk/reward ratio
-- Scores: Each strategy option
+# 📌 Problem
 
-### Risk Agent
-Evaluates position risk and portfolio impact.
-- Checks: Portfolio exposure, correlation, Greeks
-- Output: Risk level + recommendation
+Automated trading systems can process market information much faster than humans, but fully autonomous AI trading introduces significant risks.
 
-### Decision Agent
-Synthesizes all inputs into final trading decision.
-- Confidence: Weighted consensus from all agents
-- Decision: TRADE / NO_TRADE with reasoning
+An AI system may:
 
-## Risk Guardians
+* Misinterpret market conditions
+* Make decisions using incomplete data
+* Overreact to market volatility
+* Generate conflicting trading recommendations
+* Continue trading during excessive drawdown
+* Execute duplicate or invalid orders
+* Make decisions using stale market data
 
-### Risk Guardian (Deterministic)
-Enforces portfolio-level risk limits:
-- Daily loss limit
-- Max drawdown threshold
-- Position size limits
-- Sector exposure caps
-- Rejects any trades violating limits
+The key question behind TradeGuard AI was:
 
-### Drawdown Guardian (Adaptive)
-Protects against prolonged losses:
-- Monitors peak-to-trough equity decline
-- Transitions trading modes based on drawdown
-- Modes: NORMAL (0-5%) → PROTECTION (5-10%) → CRITICAL (>10%)
+> **Can AI agents reason and act autonomously while a deterministic safety system remains in complete control of financial risk?**
 
-## Trading Modes
+---
 
-| Mode | Drawdown | Behavior |
-|------|----------|----------|
-| **NORMAL** | 0-5% | Full autonomy, all strategies enabled |
-| **PROTECTION** | 5-10% | Reduced position sizes, conservative strategies |
-| **CRITICAL** | >10% | Stop trading, focus on reducing drawdown |
+# 💡 Solution
 
-## API Endpoints
+TradeGuard AI combines **specialized AI agents** with a deterministic risk-control layer.
 
-### Portfolio
-```
-GET  /api/v1/portfolio              # Current portfolio state
-GET  /api/v1/portfolio/history      # Historical equity data
-GET  /api/v1/portfolio/stats        # Portfolio statistics
-GET  /api/v1/portfolio/health       # Health check with Risk Guardian status
-GET  /api/v1/portfolio/positions    # Open positions
-GET  /api/v1/portfolio/orders       # All orders
-GET  /api/v1/portfolio/activity     # Activity audit trail
-```
+Each AI agent has a specific responsibility:
 
-### Autonomous Engine
-```
-POST /api/v1/autonomous/start       # Start autonomous trading
-POST /api/v1/autonomous/stop        # Stop autonomous trading
-GET  /api/v1/autonomous/status      # Engine status
-POST /api/v1/autonomous/run-cycle   # Execute one trading cycle
+* 📊 Market analysis
+* 📈 Bullish analysis
+* 📉 Bearish analysis
+* 🧮 Options strategy analysis
+* 🛡️ Risk analysis
+* 🤖 Trading decision generation
+
+These agents communicate through a structured **Debate Engine** before a final decision is produced.
+
+However, AI-generated decisions are **never trusted blindly**.
+
+Every proposed trade passes through:
+
+**RiskGuardian → DrawdownGuardian → Order Validation → Paper Execution**
+
+If risk limits are violated, the system automatically blocks the trade.
+
+---
+
+# ✨ Key Features
+
+## 🤖 Multi-Agent Trading Intelligence
+
+TradeGuard AI uses multiple specialized agents instead of relying on a single AI response.
+
+### MarketScoutAgent
+
+Analyzes available market information and identifies relevant trading opportunities.
+
+### OptionsAnalystAgent
+
+Analyzes options-related market information and evaluates potential strategies.
+
+### BullAgent
+
+Builds the bullish case for a potential trade.
+
+### BearAgent
+
+Builds the bearish case and identifies downside risks.
+
+### OptionsStrategyAgent
+
+Evaluates possible options strategies based on the available market context.
+
+### RiskAgent
+
+Analyzes potential portfolio and trade-level risks.
+
+---
+
+# 🗣️ AI Debate Engine
+
+The system brings opposing perspectives together before making a decision.
+
+```text
+                 Market Data
+                     │
+                     ▼
+          ┌─────────────────────┐
+          │   Market Scout      │
+          └──────────┬──────────┘
+                     │
+          ┌──────────┴──────────┐
+          ▼                     ▼
+   ┌──────────────┐      ┌──────────────┐
+   │  Bull Agent  │      │  Bear Agent  │
+   └──────┬───────┘      └──────┬───────┘
+          │                     │
+          └──────────┬──────────┘
+                     ▼
+             ┌───────────────┐
+             │ Debate Engine │
+             └───────┬───────┘
+                     ▼
+             ┌───────────────┐
+             │ DecisionAgent │
+             └───────┬───────┘
+                     ▼
+             RiskGuardian
 ```
 
-### Debate Pipeline
+This allows the system to consider both opportunity and risk before generating a trade decision.
+
+---
+
+# 🛡️ Deterministic Risk Guardian
+
+The most important architectural principle of TradeGuard AI is:
+
+> **LLMs can recommend. Deterministic code decides whether the trade is allowed.**
+
+The RiskGuardian operates independently of the AI reasoning layer.
+
+It can block trades when:
+
+* Risk limits are exceeded
+* Required market information is unavailable
+* Data is stale
+* Order parameters are invalid
+* Portfolio exposure is too high
+* Drawdown protection is triggered
+* The system enters CRITICAL mode
+
+AI agents cannot override the RiskGuardian.
+
+---
+
+# 📉 Adaptive Drawdown Protection
+
+TradeGuard AI continuously monitors portfolio drawdown.
+
+The system operates using three protection modes:
+
+### 🟢 NORMAL
+
+Normal trading operations are permitted when portfolio risk remains within configured limits.
+
+### 🟡 PROTECTION
+
+Trading restrictions are increased when portfolio risk or drawdown begins approaching configured thresholds.
+
+### 🔴 CRITICAL
+
+New trades are blocked.
+
+The system continues monitoring existing positions and records a risk event.
+
+```text
+NORMAL
+   │
+   │ Risk increases
+   ▼
+PROTECTION
+   │
+   │ Critical threshold reached
+   ▼
+CRITICAL
+   │
+   ├── New trades BLOCKED
+   ├── Existing positions monitored
+   ├── Risk event created
+   └── Alert generated
 ```
-POST /api/v1/debate/run             # Execute debate for opportunity
-GET  /api/v1/debate/{debate_id}     # Get debate result
-GET  /api/v1/debate/                # List all debates
+
+---
+
+# 📊 Portfolio Monitoring
+
+TradeGuard AI monitors:
+
+* Portfolio value
+* Available cash
+* Buying power
+* Open positions
+* Trade history
+* Exposure
+* Drawdown
+* Risk state
+* Recent autonomous decisions
+
+This allows the system to continuously evaluate the portfolio rather than treating every trade as an isolated event.
+
+---
+
+# 📋 Audit Trail
+
+Every important autonomous action is recorded.
+
+The audit system tracks:
+
+* Market analysis
+* Agent decisions
+* Debate results
+* Risk decisions
+* Order validation
+* Order execution
+* Portfolio changes
+* Risk events
+* System activity
+
+This creates a traceable record of **what happened, why it happened, and which component authorized the action**.
+
+---
+
+# 🐘 PostgreSQL Database
+
+## PostgreSQL is a core part of TradeGuard AI's architecture.
+
+TradeGuard AI uses **PostgreSQL as the production-ready relational database layer** for persistent trading, portfolio, risk, agent, and audit information.
+
+The database provides structured persistence for an autonomous system where historical decisions and financial events need to remain traceable.
+
+### PostgreSQL stores information such as:
+
+* 👤 Users / demo users
+* 📊 Market and trading records
+* 💼 Portfolio information
+* 📈 Positions
+* 📝 Orders
+* 🤖 Agent decisions
+* 🗣️ Debate results
+* 🛡️ Risk events
+* 📉 Drawdown events
+* 📜 Audit logs
+* ⚙️ System configuration
+
+---
+
+# 🗄️ PostgreSQL Data Architecture
+
+```text
+                    PostgreSQL
+                         │
+       ┌─────────────────┼─────────────────┐
+       │                 │                 │
+       ▼                 ▼                 ▼
+   PORTFOLIO           TRADING            AI
+       │                 │                 │
+       │                 │                 │
+       ▼                 ▼                 ▼
+  positions          orders          agent_decisions
+  balances           executions      debate_results
+  exposure            trade_history  risk_decisions
+       │                 │                 │
+       └─────────────────┼─────────────────┘
+                         ▼
+                   RISK & AUDIT
+                         │
+              ┌──────────┴──────────┐
+              ▼                     ▼
+        risk_events            audit_logs
 ```
+
+The relational structure allows trading activity, AI reasoning, portfolio state, and risk events to remain connected.
+
+---
+
+# 🔗 Database Relationships
+
+A simplified relationship can be represented as:
+
+```text
+User
+ │
+ ├──────────────► Portfolio
+ │                    │
+ │                    ▼
+ │                 Positions
+ │                    │
+ │                    ▼
+ └──────────────► Orders
+                      │
+                      ▼
+                  Executions
+
+
+AI Agents
+    │
+    ▼
+Agent Decisions
+    │
+    ▼
+Debate Results
+    │
+    ▼
+Final Decision
+    │
+    ▼
+Risk Guardian
+    │
+    ▼
+Audit Log
+```
+
+This structure makes it possible to reconstruct the lifecycle of an autonomous trading decision.
+
+---
+
+# 🔄 PostgreSQL Trading Workflow
+
+When an autonomous trading cycle begins:
+
+```text
+1. Market information is collected
+              ↓
+2. AI agents analyze the market
+              ↓
+3. Bull/Bear agents produce opposing views
+              ↓
+4. Debate Engine combines the analysis
+              ↓
+5. Decision Agent generates a proposed action
+              ↓
+6. RiskGuardian evaluates the proposal
+              ↓
+7. Approved decision is validated
+              ↓
+8. Paper order is submitted
+              ↓
+9. Execution result is recorded
+              ↓
+10. Portfolio state is updated
+              ↓
+11. Complete activity is stored in PostgreSQL
+```
+
+This provides persistent state instead of relying only on temporary application memory.
+
+---
+
+# 🏗️ System Architecture
+
+```text
+                         USER
+                           │
+                           ▼
+                ┌────────────────────┐
+                │   Next.js Dashboard │
+                │   React + TypeScript│
+                └──────────┬─────────┘
+                           │
+                           ▼
+                ┌────────────────────┐
+                │     FastAPI        │
+                │      Backend       │
+                └──────────┬─────────┘
+                           │
+             ┌─────────────┼─────────────┐
+             │             │             │
+             ▼             ▼             ▼
+        AI Agents      Risk Engine   Alpaca API
+             │             │             │
+             ▼             ▼             ▼
+        Debate Engine  RiskGuardian   Paper Trading
+             │             │             │
+             └─────────────┼─────────────┘
+                           ▼
+                    ┌─────────────┐
+                    │ PostgreSQL  │
+                    │  Database   │
+                    └──────┬──────┘
+                           │
+             ┌─────────────┼─────────────┐
+             ▼             ▼             ▼
+        Audit Logs     Portfolio      Risk Events
+```
+
+---
+
+# 🧠 AI Decision Architecture
+
+TradeGuard AI separates **reasoning from authority**.
+
+```text
+┌─────────────────────────────────────────┐
+│              AI REASONING               │
+│                                         │
+│ MarketScout                             │
+│ OptionsAnalyst                          │
+│ Bull Agent                              │
+│ Bear Agent                              │
+│ Options Strategy Agent                  │
+│ Risk Agent                              │
+│                                         │
+│          ↓ Debate Engine ↓              │
+│                                         │
+│           Decision Agent                │
+└───────────────────┬─────────────────────┘
+                    │
+                    ▼
+          ┌──────────────────┐
+          │ RISK AUTHORITY   │
+          │                  │
+          │ RiskGuardian     │
+          │ DrawdownGuardian │
+          └────────┬─────────┘
+                   │
+            ┌──────┴──────┐
+            │             │
+          ALLOW           BLOCK
+            │             │
+            ▼             ▼
+       Order Flow      No Trade
+            │
+            ▼
+       Validation
+            │
+            ▼
+     Alpaca Paper Trading
+```
+
+---
+
+# 🔌 Trading Integration
+
+TradeGuard AI integrates with **Alpaca Paper Trading** for simulated order execution.
+
+The trading layer is responsible for:
+
+* Order creation
+* Order validation
+* Order submission
+* Order tracking
+* Position tracking
+* Portfolio synchronization
+* Duplicate-order protection
+
+The architecture is designed so that autonomous trading can be tested without using real capital.
+
+---
+
+# 🚫 No-Trade Safety Conditions
+
+TradeGuard AI follows a strict **NO TRADE** principle.
+
+A trade should not be executed when:
+
+* Market data is missing
+* Market data is stale
+* Required information is invalid
+* Risk limits are exceeded
+* Drawdown enters CRITICAL mode
+* Order validation fails
+* Trading conditions cannot be verified
+* Required dependencies are unavailable
+
+```text
+Invalid / Missing / Stale Data
+              │
+              ▼
+           NO TRADE
+```
+
+The system prefers **not trading** over making an unsafe assumption.
+
+---
+
+# 🛠️ Tech Stack
+
+| Technology         | Purpose                                      |
+| ------------------ | -------------------------------------------- |
+| **Next.js**        | Frontend web application                     |
+| **React**          | Interactive dashboard                        |
+| **TypeScript**     | Frontend development                         |
+| **Tailwind CSS**   | UI styling                                   |
+| **Python**         | Backend and trading logic                    |
+| **FastAPI**        | Backend REST APIs                            |
+| **PostgreSQL**     | Primary relational database                  |
+| **SQLAlchemy**     | Database ORM                                 |
+| **Alembic**        | Database migrations                          |
+| **Alpaca API**     | Paper trading and market integration         |
+| **LLM Providers**  | AI agent reasoning                           |
+| **Redis**          | Caching / real-time support where configured |
+| **ChromaDB**       | Vector storage where configured              |
+| **Prometheus**     | Monitoring                                   |
+| **Grafana**        | Metrics visualization                        |
+| **Docker**         | Containerization                             |
+| **GitHub Actions** | CI/CD                                        |
+| **GitHub**         | Version control                              |
+
+---
+
+# ⭐ Why PostgreSQL?
+
+PostgreSQL was selected because TradeGuard AI requires a database capable of handling structured and relational financial information.
+
+### PostgreSQL provides:
+
+* Reliable relational storage
+* Strong consistency
+* Structured relationships
+* Transaction support
+* Persistent portfolio state
+* Persistent order history
+* Persistent risk events
+* Auditable trading records
+* Production scalability
+
+For an autonomous trading platform, database persistence is important because the system needs to remember previous decisions, orders, positions, risk events, and audit information.
+
+---
+
+# 📂 Project Structure
+
+```text
+tradeguard-ai/
+│
+├── backend/
+│   ├── app/
+│   │   ├── api/
+│   │   ├── agents/
+│   │   ├── core/
+│   │   ├── database/
+│   │   ├── models/
+│   │   ├── risk/
+│   │   ├── trading/
+│   │   ├── services/
+│   │   └── main.py
+│   │
+│   ├── tests/
+│   ├── alembic/
+│   ├── requirements.txt
+│   └── .env
+│
+├── frontend/
+│   ├── app/
+│   ├── components/
+│   ├── lib/
+│   ├── public/
+│   ├── package.json
+│   └── ...
+│
+├── docker-compose.yml
+├── README.md
+└── .gitignore
+```
+
+---
+
+# 🔌 Backend API
+
+The FastAPI backend provides endpoints for:
 
 ### Health
+
+```text
+GET /health
 ```
-GET  /health                        # System health check
+
+Used to verify that the backend is running.
+
+### Portfolio
+
+```text
+GET /api/portfolio
 ```
 
-## Setup
+Returns portfolio information and current state.
 
-### Prerequisites
-- Python 3.11+
-- Node.js 18+
-- Alpaca Trading API account (paper trading)
-- Claude API key (for AI providers)
+### Positions
 
-### Backend Setup
+```text
+GET /api/positions
+```
 
-1. **Install dependencies**:
+Returns currently tracked positions.
+
+### Trading
+
+```text
+POST /api/orders
+```
+
+Handles validated paper-trading orders.
+
+### AI Analysis
+
+```text
+GET /api/analysis
+```
+
+Provides AI-generated market/trading analysis.
+
+### Risk
+
+```text
+GET /api/risk
+```
+
+Returns the current risk and drawdown state.
+
+### Audit
+
+```text
+GET /api/audit
+```
+
+Retrieves recorded system activity and trading events.
+
+> Exact API routes may vary depending on the final backend implementation.
+
+---
+
+# 💻 Getting Started
+
+## Prerequisites
+
+Make sure you have installed:
+
+* Python 3.12+
+* Node.js
+* npm
+* Git
+* PostgreSQL
+* Docker *(optional)*
+* Alpaca Paper Trading account
+
+---
+
+# 1️⃣ Clone the Repository
+
+```bash
+git clone <YOUR_GITHUB_REPOSITORY_URL>
+```
+
+Move into the project directory:
+
+```bash
+cd tradeguard-ai
+```
+
+---
+
+# 2️⃣ Configure PostgreSQL
+
+Create a PostgreSQL database for the application.
+
+Example:
+
+```text
+tradeguard
+```
+
+Then configure the database connection in the backend environment.
+
+Example:
+
+```env
+DATABASE_URL=postgresql://username:password@localhost:5432/tradeguard
+```
+
+For a hosted PostgreSQL provider, use the provider's PostgreSQL connection string.
+
+---
+
+# 3️⃣ Configure Environment Variables
+
+Create a `.env` file in the backend.
+
+Example:
+
+```env
+DATABASE_URL=postgresql://username:password@localhost:5432/tradeguard
+
+ALPACA_API_KEY=your_alpaca_paper_api_key
+ALPACA_SECRET_KEY=your_alpaca_paper_secret_key
+
+ALPACA_BASE_URL=https://paper-api.alpaca.markets
+
+LLM_PROVIDER=your_provider
+LLM_API_KEY=your_llm_api_key
+
+DRY_RUN=true
+```
+
+### ⚠️ Security
+
+Never commit:
+
+```text
+.env
+API keys
+Secret keys
+Database passwords
+Private credentials
+```
+
+to GitHub.
+
+---
+
+# 4️⃣ Install Backend Dependencies
+
 ```bash
 cd backend
+```
+
+Create a virtual environment:
+
+```bash
+py -3.12 -m venv .venv
+```
+
+Activate it on Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
 ```
 
-2. **Create `.env`**:
+---
+
+# 5️⃣ Initialize PostgreSQL Database
+
+Run the database migrations:
+
 ```bash
-ALPACA_API_KEY=your_alpaca_key
-ALPACA_SECRET_KEY=your_alpaca_secret
-ALPACA_BASE_URL=https://paper-api.alpaca.markets  # Paper trading
-CLAUDE_API_KEY=your_claude_key
+alembic upgrade head
 ```
 
-3. **Run migrations**:
+This creates the required PostgreSQL database structure.
+
+---
+
+# 6️⃣ Start the Backend
+
 ```bash
-python -m alembic upgrade head
+uvicorn app.main:app --reload --port 8001
 ```
 
-4. **Start backend**:
-```bash
-python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+Backend:
+
+```text
+http://localhost:8001
 ```
 
-Backend will be available at `http://localhost:8000`
+API documentation:
 
-### Frontend Setup
+```text
+http://localhost:8001/docs
+```
 
-1. **Install dependencies**:
+---
+
+# 7️⃣ Start the Frontend
+
+Open another terminal:
+
 ```bash
 cd frontend
+```
+
+Install dependencies:
+
+```bash
 npm install
 ```
 
-2. **Create `.env.local`**:
-```bash
-NEXT_PUBLIC_API_URL=http://localhost:8000
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-```
+Start the development server:
 
-3. **Start frontend**:
 ```bash
 npm run dev
 ```
 
-Frontend will be available at `http://localhost:3000`
+Open:
 
-## Demo Mode
-
-TradeGuard AI includes a **Demo Mode** for safe demonstration with simulated data.
-
-### Enable Demo Mode
-1. Go to Settings page
-2. Click **ENABLE DEMO MODE** button
-3. Page reloads with simulated data
-
-### Demo Features
-- **$100,000 paper capital** (simulated)
-- **Autonomous cycle** with all 7 agents
-- **Market Scout analysis** with mock market data
-- **Options contracts** with realistic Greeks
-- **Bull/Bear debate** with full reasoning
-- **Risk Guardian decisions** with rejection examples
-- **Drawdown Guardian** mode transitions
-- **Position P&L** with realistic prices
-- **Trading mode transitions** (NORMAL → PROTECTION → CRITICAL)
-- **Mock voice alerts** on important events
-- **Complete audit trail** in activity log
-
-All data is clearly labeled **SIMULATED** to prevent confusion.
-
-### Demo Scenario
-1. Portfolio: $100k paper capital, $75k cash, $85k buying power
-2. Run autonomous cycle → generates AI debate
-3. Multiple opportunities identified → shows decision pipeline
-4. Risk Guardian approves/rejects trades
-5. Positions accumulate with P&L
-6. Drawdown increases → triggers PROTECTION mode
-7. Further losses trigger CRITICAL mode
-8. Voice alert notifies of critical events
-9. Activity log records all events
-
-## Testing
-
-### Backend Tests
-```bash
-cd backend
-pytest tests/ -v                      # All tests
-pytest tests/test_autonomous.py -v   # Autonomous engine tests
-pytest tests/test_risk.py -v         # Risk guardian tests
-pytest tests/test_agents.py -v       # Agent tests
+```text
+http://localhost:3000
 ```
-
-### Frontend Tests
-```bash
-cd frontend
-npm run lint                          # ESLint
-npm run type-check                   # TypeScript check
-npm run build                        # Production build
-```
-
-## Security
-
-- ✅ No API keys in frontend
-- ✅ No secrets in QR codes
-- ✅ Paper trading enforced (no live trading)
-- ✅ All actions logged for audit trail
-- ✅ Secrets stored server-side only
-- ✅ HTTPS recommended in production
-- ✅ Risk Guardian deterministic controls
-
-## Monitoring
-
-### Key Metrics
-- Portfolio value and P&L
-- Drawdown percentage
-- Open positions count
-- Trading mode (NORMAL/PROTECTION/CRITICAL)
-- Risk scores
-- Agent confidence levels
-
-### Alerts
-- Critical: Trading mode change to CRITICAL
-- Warning: Approaching risk limits
-- Info: Trade execution, debate completion
-
-## Development
-
-### Add New Page
-```bash
-# Create page component
-touch frontend/app/[page-name]/page.tsx
-
-# Add route in navigation
-```
-
-### Add New API Endpoint
-```python
-# In backend/app/routes/
-@router.get("/api/v1/endpoint")
-async def endpoint():
-    return {...}
-```
-
-### Customize Risk Limits
-Edit `backend/app/risk/risk_guardian.py`:
-```python
-DAILY_LOSS_LIMIT = 5000          # Max daily loss
-MAX_DRAWDOWN = 0.15              # Max 15% drawdown
-MAX_POSITION_SIZE = 0.05         # Max 5% per position
-```
-
-## Environment Variables
-
-### Backend
-```
-ALPACA_API_KEY              # Alpaca paper trading key
-ALPACA_SECRET_KEY           # Alpaca secret
-ALPACA_BASE_URL             # Paper trading URL
-CLAUDE_API_KEY              # Claude AI provider
-DB_URL                      # Database connection
-LOG_LEVEL                   # Logging level (INFO/DEBUG)
-```
-
-### Frontend
-```
-NEXT_PUBLIC_API_URL         # Backend API URL
-NEXT_PUBLIC_APP_URL         # Frontend URL for QR codes
-NEXT_PUBLIC_DEMO_MODE       # Force demo mode (optional)
-```
-
-## Troubleshooting
-
-### Frontend Not Loading
-1. Check backend is running: `http://localhost:8000/health`
-2. Verify `NEXT_PUBLIC_API_URL` in `.env.local`
-3. Clear browser cache and restart: `npm run dev`
-
-### API Connection Error
-1. Check backend logs for errors
-2. Verify Alpaca credentials in `.env`
-3. Ensure paper trading URL is used
-
-### Demo Mode Not Working
-1. Go to Settings page
-2. Click to enable demo mode
-3. Check browser console for errors
-
-## License
-
-MIT License - See LICENSE file for details
-
-## Support
-
-For issues or questions:
-1. Check existing GitHub issues
-2. Review API documentation
-3. Check backend logs: `tail -f backend/logs/*.log`
-4. Enable debug logging: `LOG_LEVEL=DEBUG`
-
-## Hackathon Checklist
-
-- ✅ Autonomous AI agent system (7 agents)
-- ✅ Alpaca Trading API integration
-- ✅ Options trading support
-- ✅ Paper trading safety
-- ✅ Professional dashboard
-- ✅ Risk management system
-- ✅ Drawdown protection
-- ✅ Audit trail logging
-- ✅ AI decision visualization
-- ✅ Voice alerts (mock)
-- ✅ Mobile QR code access
-- ✅ Demo mode
-- ✅ Production-ready build
-- ✅ Comprehensive tests
-- ✅ Security hardened
 
 ---
 
-**Built with Next.js, FastAPI, Claude AI, and Alpaca Trading API**
+# 🔄 Complete Application Flow
+
+```text
+                   USER
+                    │
+                    ▼
+             Trading Dashboard
+                    │
+                    ▼
+               FastAPI API
+                    │
+        ┌───────────┼───────────┐
+        ▼           ▼           ▼
+     Market       AI Agents    Portfolio
+      Data           │           │
+                     ▼           │
+                AI Debate        │
+                     │           │
+                     ▼           │
+               Decision Agent    │
+                     │           │
+                     ▼           │
+                RiskGuardian ◄───┘
+                     │
+              ┌──────┴──────┐
+              ▼             ▼
+           ALLOW           BLOCK
+              │             │
+              ▼             ▼
+        Order Validator   Risk Event
+              │             │
+              ▼             │
+       Alpaca Paper API     │
+              │             │
+              └──────┬──────┘
+                     ▼
+                PostgreSQL
+                     │
+        ┌────────────┼────────────┐
+        ▼            ▼            ▼
+      Orders     Portfolio     Audit Logs
+```
+
+---
+
+# 🔐 Security Architecture
+
+TradeGuard AI follows a defense-in-depth approach.
+
+### AI Safety
+
+AI agents cannot directly override deterministic risk controls.
+
+### Trading Safety
+
+The project uses Alpaca Paper Trading during development and demonstration.
+
+### Risk Safety
+
+CRITICAL drawdown mode blocks new trades.
+
+### Data Safety
+
+Missing, invalid, or stale information results in a **NO TRADE** decision.
+
+### Credential Safety
+
+API credentials are stored through environment variables.
+
+### Database Safety
+
+PostgreSQL credentials are never exposed through frontend code.
+
+---
+
+# 🧪 Testing
+
+TradeGuard AI includes testing for critical components such as:
+
+* Backend APIs
+* Agent behavior
+* Risk calculations
+* Drawdown protection
+* Order validation
+* Trading workflow
+* Database operations
+* Portfolio state
+* Autonomous decision flow
+
+The objective is to ensure that autonomous behavior remains predictable even when individual components fail.
+
+---
+
+# 📚 What I Learned
+
+Building TradeGuard AI helped me understand how to combine AI with reliable software engineering rather than treating an LLM as the entire system.
+
+Key takeaways:
+
+* Multi-agent systems require clearly defined responsibilities.
+* AI reasoning should be separated from execution authority.
+* Deterministic risk controls are essential for autonomous financial systems.
+* PostgreSQL is important for maintaining persistent and relational trading data.
+* Database design becomes critical when multiple entities such as orders, positions, decisions, and audit events are interconnected.
+* Paper trading provides a safer environment for testing autonomous workflows.
+* API failures and missing data must be treated as first-class failure conditions.
+* Autonomous systems need strong observability and auditability.
+* A good AI system needs both **intelligence and guardrails**.
+
+---
+
+# 🚧 What Was Harder Than Expected
+
+One of the biggest challenges was coordinating multiple AI components while ensuring that AI-generated decisions could never bypass the safety layer.
+
+Other challenges included:
+
+* Connecting frontend and backend reliably
+* Managing backend port configuration
+* Integrating Alpaca Paper Trading
+* Designing the multi-agent communication flow
+* Maintaining consistent structured outputs
+* Implementing deterministic risk controls
+* Managing PostgreSQL persistence
+* Handling stale or missing market information
+* Preventing duplicate orders
+* Maintaining an auditable autonomous workflow
+
+These challenges shaped the final **Separation of Powers** architecture.
+
+---
+
+# 🔮 Future Improvements
+
+Planned improvements include:
+
+* Advanced options strategy optimization
+* More sophisticated portfolio optimization
+* Real-time market event detection
+* Improved multi-agent debate
+* More LLM provider integrations
+* Advanced backtesting
+* Historical strategy evaluation
+* Real-time risk analytics
+* Improved anomaly detection
+* Voice-based trading assistant
+* Mobile-optimized monitoring
+* Advanced PostgreSQL analytics
+* More comprehensive observability
+* Expanded paper-trading scenarios
+
+The long-term goal is to create a robust autonomous trading research platform where AI can **reason, analyze, and act within clearly defined safety boundaries**.
+
+---
+
+# 🏆 What Makes TradeGuard AI Different?
+
+### 🧠 Multi-Agent Intelligence
+
+Multiple specialized agents analyze the same trading opportunity from different perspectives.
+
+### 🛡️ AI + Deterministic Safety
+
+The LLM does not have unrestricted control over trading decisions.
+
+### 📉 Adaptive Risk Protection
+
+Drawdown conditions dynamically change the system's trading behavior.
+
+### 🐘 PostgreSQL Persistence
+
+Trading, portfolio, AI reasoning, risk events, and audit information are stored in a structured relational database.
+
+### 🔍 Explainable Decisions
+
+The system maintains an audit trail that helps reconstruct autonomous decisions.
+
+### 🧪 Paper Trading First
+
+The system is designed around simulated trading for safer development and demonstration.
